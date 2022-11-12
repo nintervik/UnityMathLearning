@@ -6,13 +6,14 @@ public class VizSpaces : MonoBehaviour
 {
     public Transform world_space;
     public Transform local_space;
-    public Transform item;
+    public Transform local_item;
+    public Transform world_item;
     public TextMesh pos_label;
 
     void OnDrawGizmos()
     {
         Vector3 local_space_pos = local_space.position;
-        Vector3 item_local_pos = item.localPosition;
+        Vector3 item_local_pos = local_item.localPosition;
 
         // WORLD X AXIS
         Gizmos.color = Color.red;
@@ -34,11 +35,19 @@ public class VizSpaces : MonoBehaviour
 
         // LOCAL POINT
         Gizmos.color = Color.cyan;
-        Gizmos.DrawSphere(item.position, 0.05f);
+        Gizmos.DrawSphere(local_item.position, 0.05f);
 
         // LOCAL TO SPACE CALCULATION
-        Vector3 world_pos_guess = MathLibrary.LocalToWorld(local_space, item.localPosition);
+        Vector3 world_pos_guess = MathLibrary.LocalToWorld(local_space, local_item.localPosition);
         
-        pos_label.text = ("GUESS WORLD POS: " + world_pos_guess + "\nREAL WORLD POS: " + item.position);
+        pos_label.text = ("GUESS WORLD POS: " + world_pos_guess + "\nREAL WORLD POS: " + local_item.position);
+
+        float local_x = MathLibrary.GetScalarProjection(world_item.position, local_space.right);
+        float local_y = MathLibrary.GetScalarProjection(world_item.position, local_space.up);
+
+        Vector3 local_pos_guess = new Vector3(local_x, local_y);
+
+        //print("REAL LOCAL POS: " + world_item.localPosition);
+        print("GUESS LOCAL POS: " + local_pos_guess);
     }
 }
