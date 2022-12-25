@@ -37,17 +37,25 @@ public class VizSpaces : MonoBehaviour
         Gizmos.color = Color.cyan;
         Gizmos.DrawSphere(local_item.position, 0.05f);
 
-        // LOCAL TO SPACE CALCULATION
+        // LOCAL TO WORLD SPACE CALCULATION
         Vector3 world_pos_guess = MathLibrary.LocalToWorld(local_space, local_item.localPosition);
         
         pos_label.text = ("GUESS WORLD POS: " + world_pos_guess + "\nREAL WORLD POS: " + local_item.position);
 
-        float local_x = MathLibrary.GetScalarProjection(world_item.position, local_space.right);
-        float local_y = MathLibrary.GetScalarProjection(world_item.position, local_space.up);
+        // LOCAL TO WORLD SPACE CALCULATION
 
-        Vector3 local_pos_guess = new Vector3(local_x, local_y);
+        world_item.position = local_item.position;
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawSphere(world_item.position, 0.05f);
+        Vector3 world_pos_at_origin = world_item.position - local_space_pos;
+        Vector3 proj_x = MathLibrary.GetVectorProjection(world_pos_at_origin, local_space.right) + local_space_pos;
+        Vector3 proj_y = MathLibrary.GetVectorProjection(world_pos_at_origin, local_space.up)+ local_space_pos;
+        Gizmos.DrawSphere(proj_x, 0.015f);
+        Gizmos.DrawSphere(proj_y, 0.015f);
 
-        //print("REAL LOCAL POS: " + world_item.localPosition);
-        print("GUESS LOCAL POS: " + local_pos_guess);
+        Vector3 local_pos_guess = MathLibrary.WorldToLocal(local_space, world_item.position);
+        pos_label.text = ("GUESS LOCAL POS: " + local_pos_guess + "\nREAL LOCAL POS: " + local_item.localPosition);
+    
+
     }
 }

@@ -45,4 +45,13 @@ public class MathLibrary
         
         return local_space_offset_from_world + world_pos_at_origin;
     }
+
+    public static Vector3 WorldToLocal(Transform local_space_transform, Vector3 world_point_pos)
+    {
+        Vector3 world_pos_at_origin = world_point_pos - local_space_transform.position;
+        float mag_x = MathLibrary.GetScalarProjection(world_pos_at_origin, local_space_transform.right);
+        float mag_y = MathLibrary.GetScalarProjection(world_pos_at_origin, local_space_transform.up);
+
+        return new Vector3(mag_x, mag_y, 0.0f);
+    }
 }
