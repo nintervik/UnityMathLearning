@@ -36,10 +36,7 @@ public class LaserBeam : MonoBehaviour
 
             origin_pos = end_pos;
 
-            Vector3 inv_prev_dir = -dir;
-            Vector3 proj_on_normal = MathLibrary.GetVectorProjection(inv_prev_dir, hit.normal);
-            Vector3 offset_from_n = proj_on_normal - inv_prev_dir;
-            dir = MathLibrary.Normalize(inv_prev_dir + offset_from_n * 2);
+            dir = MathLibrary.ReflectVector(dir, hit.normal);
         }
     }
 }

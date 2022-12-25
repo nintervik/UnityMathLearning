@@ -49,6 +49,11 @@ public class MathLibrary
         return (to * scalar_proj);
     }
 
+    public static Vector3 ReflectVector(Vector3 dir, Vector3 normal)
+    {
+        return dir - 2 * GetScalarProjection(dir, normal) * normal;
+    }
+
     public static Vector3 LocalToWorld(Transform local_space_transform_in_world, Vector3 local_point_pos)
     {
         Vector3 local_space_offset_from_world = local_space_transform_in_world.position;
