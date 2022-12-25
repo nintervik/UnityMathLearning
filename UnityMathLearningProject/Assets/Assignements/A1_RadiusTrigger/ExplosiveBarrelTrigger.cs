@@ -13,13 +13,9 @@ public class ExplosiveBarrelTrigger : MonoBehaviour
         Gizmos.color = Color.blue;
         Gizmos.DrawLine(barrel_pos, player_pos);
         
-        float distance = MathLibrary.MagnitudeBetweenVectors(player_pos, barrel_pos);
-
-        if (distance <= radius)
-            UnityEditor.Handles.color = Color.red;
-        else
-            UnityEditor.Handles.color = Color.green;
-
+        float distance = MathLibrary.SqrMagnitudeBetweenVectors(player_pos, barrel_pos);
+        bool inside = distance <= radius * radius;
+        UnityEditor.Handles.color = inside ? Color.red : Color.green;
         UnityEditor.Handles.DrawWireDisc(barrel_pos, Vector3.back, radius);
     }
 }

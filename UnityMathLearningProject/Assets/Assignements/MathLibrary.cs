@@ -5,13 +5,26 @@ public class MathLibrary
 {
     public static float VectorMagnitude(Vector2 a)
     {
+        // This is the same as doing Mathf.Sqrt(Dot(a, a))
         return Mathf.Sqrt(a.x * a.x + a.y * a.y);
+    }
+
+    public static float VectorSqrMagnitude(Vector2 a)
+    {
+        // This is the same as doing Mathf.Dot(a, a)
+        return a.x * a.x + a.y * a.y;
     }
 
     public static float MagnitudeBetweenVectors(Vector2 a, Vector2 b)
     {
         Vector2 distance_vec = new Vector2(b.x - a.x, b.y - a.y);
         return VectorMagnitude(distance_vec);
+    }
+
+    public static float SqrMagnitudeBetweenVectors(Vector2 a, Vector2 b)
+    {
+        Vector2 distance_vec = new Vector2(b.x - a.x, b.y - a.y);
+        return VectorSqrMagnitude(distance_vec);
     }
 
     public static Vector3 Normalize(Vector3 a)
