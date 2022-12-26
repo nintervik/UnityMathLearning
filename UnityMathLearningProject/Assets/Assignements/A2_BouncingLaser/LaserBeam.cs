@@ -33,7 +33,7 @@ public class LaserBeam : MonoBehaviour
                 Gizmos.DrawSphere(hit.point, 2.25f);
 
             Gizmos.DrawLine(origin_pos, end_pos);
-
+                
             origin_pos = end_pos;
 
             dir = MathLibrary.ReflectVector(dir, hit.normal);

@@ -3,28 +3,31 @@ using UnityEngine;
 
 public class MathLibrary
 {
-    public static float VectorMagnitude(Vector2 a)
+    public static Vector3 VectorDelta(Vector3 from, Vector3 to)
+    {
+        return new Vector3(to.x - from.x, to.y - from.y, to.z - from.z);
+    }
+
+    public static float VectorMagnitude(Vector3 a)
     {
         // This is the same as doing Mathf.Sqrt(Dot(a, a))
-        return Mathf.Sqrt(a.x * a.x + a.y * a.y);
+        return Mathf.Sqrt(a.x * a.x + a.y * a.y + a.z * a.z);
     }
 
-    public static float VectorSqrMagnitude(Vector2 a)
+    public static float VectorSqrMagnitude(Vector3 a)
     {
         // This is the same as doing Mathf.Dot(a, a)
-        return a.x * a.x + a.y * a.y;
+        return (a.x * a.x + a.y * a.y + a.z * a.z);
     }
 
-    public static float MagnitudeBetweenVectors(Vector2 a, Vector2 b)
+    public static float MagnitudeBetweenVectors(Vector3 a, Vector3 b)
     {
-        Vector2 distance_vec = new Vector2(b.x - a.x, b.y - a.y);
-        return VectorMagnitude(distance_vec);
+        return VectorMagnitude(VectorDelta(a, b));
     }
 
-    public static float SqrMagnitudeBetweenVectors(Vector2 a, Vector2 b)
+    public static float SqrMagnitudeBetweenVectors(Vector3 a, Vector3 b)
     {
-        Vector2 distance_vec = new Vector2(b.x - a.x, b.y - a.y);
-        return VectorSqrMagnitude(distance_vec);
+        return VectorSqrMagnitude(VectorDelta(a, b));
     }
 
     public static Vector3 Normalize(Vector3 a)
