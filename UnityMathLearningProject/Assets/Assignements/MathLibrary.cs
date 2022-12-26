@@ -48,8 +48,7 @@ public class MathLibrary
 
     public static Vector3 GetVectorProjection(Vector3 from, Vector3 to)
     {
-        float scalar_proj = GetScalarProjection(from, to);
-        return (to * scalar_proj);
+        return (to * GetScalarProjection(from, to));
     }
 
     public static Vector3 ReflectVector(Vector3 dir, Vector3 normal)
